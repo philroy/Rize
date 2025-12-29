@@ -1,0 +1,39 @@
+{
+  "name": "rize-ai-companion",
+  "version": "1.0.0",
+  "description": "AI Companion system modeled after Rize Kamishiro - for companionship and daily assistance",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "start": "bun run src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "ai-companion",
+    "assistant",
+    "rize",
+    "tokyo-ghoul"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "better-sqlite3": "^11.7.0",
+    "ink": "^5.0.1",
+    "ink-text-input": "^6.0.0",
+    "ink-spinner": "^5.0.0",
+    "react": "^18.3.1",
+    "chalk": "^5.3.0",
+    "dotenv": "^16.4.7",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "typescript": "^5.7.2"
+  }
+}
