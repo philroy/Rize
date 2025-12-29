@@ -82,11 +82,25 @@ class RizeEnhancedApp {
   private initializeVoice(): void {
     // Initialize TTS
     const ttsProvider = process.env.TTS_PROVIDER || 'system';
-    this.tts = new TTSEngine({
-      provider: ttsProvider as any,
-      apiKey: process.env.ELEVENLABS_API_KEY,
-      voiceId: process.env.ELEVENLABS_VOICE_ID,
-    });
+
+    if (ttsProvider === 'rvc') {
+      // Use RVC voice cloning (Rize's actual voice!)
+      const { RVCTTSEngine } = require('./audio/rvc-tts-engine.js');
+      this.tts = new RVCTTSEngine({
+        rvcServerUrl: process.env.RVC_SERVER_URL,
+        rvcModelName: process.env.RVC_MODEL_NAME || 'rize_kamishiro',
+        pitch: parseInt(process.env.RVC_PITCH || '0'),
+        indexRate: parseFloat(process.env.RVC_INDEX_RATE || '0.75'),
+        filterRadius: parseInt(process.env.RVC_FILTER_RADIUS || '3'),
+      });
+    } else {
+      // Use regular TTS (ElevenLabs or system)
+      this.tts = new TTSEngine({
+        provider: ttsProvider as any,
+        apiKey: process.env.ELEVENLABS_API_KEY,
+        voiceId: process.env.ELEVENLABS_VOICE_ID,
+      });
+    }
 
     // Initialize STT
     const sttProvider = process.env.STT_PROVIDER || 'system';
